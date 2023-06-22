@@ -1,25 +1,33 @@
 import java.util.Scanner;
+import java.util.Random;
 public class HighorLow {
     public static void main(String[] args) {
-        Scanner in =  new Scanner (System.in);
-        double cValue;
-        double fValue;
-        int BOILING_TEMP = 100;
-        int FREEZING_TEMP = 0;
-        System.out.println("What is the temp? [Celsius]");
-        cValue = in.nextInt();
-        if (cValue <= FREEZING_TEMP) {
-            System.out.println("You entered a freezing temperature. Please try again.");
-        System.exit(0);
+        Scanner in = new Scanner(System.in);
+        Random generator = new Random();  // I usually call it rnd or gen
+        int userGuess = 0;
+        int realNum = generator.nextInt(10) + 1;
+        boolean done = false;
+        String trash;
+        System.out.println("Welcome to num guesser!\nWhat is your guess?");
+        do {
+            if (in.hasNextInt()) {
+                userGuess = in.nextInt();
+                done = true;
+            } else {
+                trash = in.nextLine();
+                System.out.println("\nError, you entered an invalid number: " + trash + ".\nPlease try again with valid characters only [0-9]: ");
+            }
         }
-        else if (cValue >= BOILING_TEMP) {
-            System.out.println("You entered a boiling temperature. Please try again. ");
-            System.exit(0);
+        while (!done);
+        {
+            System.out.println("The number was " + realNum + "!");
+            if (userGuess == realNum) {
+                System.out.println("You win!");
+            } else if (userGuess > realNum) {
+                System.out.println("You were too high.");
+            } else {
+                System.out.println("You were too low.");
+            }
         }
-        else {
-            fValue = ((cValue * 9/5) + 32);
-            System.out.println(cValue + " degrees Fahrenheit is " + fValue + " degrees Celsius.");
-        }
-
     }
 }
